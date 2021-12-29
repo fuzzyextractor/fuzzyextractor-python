@@ -118,7 +118,7 @@ class FuzzyExtractor:
         self.scale=2**20
     
     def Gen(self,w): 
-        w=numpy.rint(w*self.scale).astype(int)
+        w=numpy.rint(numpy.array(w)*self.scale).astype(int)
         P=self.ss.Gen(w)
         hash=hashlib.sha256()
         hash.update(str(w).encode())
@@ -126,10 +126,9 @@ class FuzzyExtractor:
         return (R,P)
 
     def Rep(self,P,w_): 
-        w_=numpy.rint(w_*self.scale).astype(int)
+        w_=numpy.rint(numpy.array(w_)*self.scale).astype(int)
         w=self.ss.Rec(P,w_)
         hash=hashlib.sha256()
         hash.update(str(w).encode())
         R=hash.digest()
         return R
-
